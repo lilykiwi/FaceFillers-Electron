@@ -1,0 +1,22 @@
+{
+  "name": "facefillers-electron",
+  "version": "0.0.1",
+  "description": "Electron Database Integration and Mockup ",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charlottie822/FaceFillers-Electron.git"
+  },
+  "author": "charlottie822",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/charlottie822/FaceFillers-Electron/issues"
+  },
+  "homepage": "https://github.com/charlottie822/FaceFillers-Electron#readme",
+  "dependencies": {
+    "electron": "^8.0.3"
+  }
+}
