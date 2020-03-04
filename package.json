@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/charlottie822/FaceFillers-Electron#readme",
   "dependencies": {
-    "electron": "^8.0.3"
+    "electron": "^8.0.3",
+    "electron-reload": "^1.5.0",
+    "octicons": "^8.5.0"
   }
 }
