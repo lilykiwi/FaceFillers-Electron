@@ -1,24 +1,31 @@
 body {
   margin: 0px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: scroll;
 }
+
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0px;
 }
 
-::-webkit-scrollbar-track {
-  color: rgba(0,0,0,0);
+
+.header {
+  position: sticky;
+  top: 10px;
+  width: 100%;
 }
 
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: grey;
+.headerImg {
+  width: 100%;
 }
 
 .header-container {
-  height:80px;
+  position: absolute;
+  top: 0px;
+  height: 100px;
+  width: 100%;
 
   display: flex;
   justify-content: center;
@@ -61,15 +68,35 @@ body {
 }
 
 .content {
-  overflow-y: scroll;
-  height: 720px;
+  position: absolute;
+  top: 90px;
+  width: 550px;
+  margin: 25px;
 }
 
-.panel {
-  position: relative;
-  width: 550px;
-  height: 250px;
-  margin: 20px 20px 50px 20px;
+.title {
+  text-justify: distribute-all-lines;
+  text-align: center;
+  font-size: 32px;
+  margin: 12px;
+}
+
+.body {
+  text-align: center;
+  margin: 1em;
+}
+
+.bigButton {
+  width: 100%;
+  height: 100px;
+  margin: 20px 0 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 38px;
+  text-decoration: none;
+  color: black;
   border-radius: 25px;
-  box-shadow: 0 20px 50px #0004;
+  border-color: black;
+  border-style: inset;
 }
