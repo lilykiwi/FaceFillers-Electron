@@ -37,7 +37,7 @@ db.connect(function (err) {
       innerElementID = "innerElement-" + element.item_id;
       itemCost = "£" + (element.item_cost / 100.0).toFixed(2);
       document.getElementById("menu_items_holder").innerHTML += `
-                                                                <div id='`+ innerElementID + `'>
+                                                                <div id='`+ innerElementID + `' class="menu-listing-container">
                                                                   <div class="menu-listing-name-container">
                                                                     `+ element.item_name + `
                                                                   </div>
