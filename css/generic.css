@@ -32,7 +32,7 @@ body {
   align-items: center;
 }
 
-.header-title {
+#header-title {
   flex: 0 0 1;
 
   text-align: center;

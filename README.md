@@ -14,3 +14,7 @@ Since this uses NodeJS, building requires utilisation of the Node Package Manage
 ```shell
 npm start
 ```
+
+## Database Integration
+
+This project requires a MySQL database service to be running on the system, configured in a specific way. I personally used MariaDB, so any analogous database utility should function perfectly. The setup is available here: [mysql.md](mysql.md).
