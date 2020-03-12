@@ -4,8 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+  <meta http-equiv="X-Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
   <link rel="stylesheet" type="text/css" href="../css/generic.css">
   <script src="../js/customer-item-fetcher.js"></script>
   <title>FaceFillers - Customer Page</title>
@@ -32,12 +34,30 @@
     <div id="menu_items_holder">
 
     </div>
+
+    <div class="title">Subtotal</div>
+    <div class="subtotal_holder">
+      <div class="subtotal-container">
+        <div class="flexContainer">
+          <div class="subtotal-name-container">
+            Total Cost:
+          </div>
+          <div class="subtotal-cost-container">
+            Delivery Address:
+          </div>
+
+          <div class="subtotal-order-button">
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!--Footer-->
   <div class="footerBar">
     <div class="footerText">
-      MIT License - https://github.com/charlottie822/FaceFillers-Electron
+      MIT License - https://github.com/tofustardust/FaceFillers-Electron
     </div>
   </div>
 </body>
