@@ -5,7 +5,15 @@ For my 2019-2020 Computing HNC, one task involved creating an application with a
 This project (currently) utilises:
 
 - [NodeJS (^10.15.2)](https://github.com/nodejs/node)
-  - [Electron (^8.0.3)](https://github.com/electron/electron)
+- [MariaDB (^10.3)](https://mariadb.com/downloads)
+
+With the npm packages through `npm install`:
+
+- [Electron (^8.0.3)](https://www.npmjs.com/package/electron)
+- [electron-packager (^14.2.1)](https://www.npmjs.com/package/electron-packager)
+- [electron-reload (^1.5.0)](https://www.npmjs.com/package/electron-reload)
+- [mysql (^2.18.1)](https://www.npmjs.com/package/mysql)
+- [octicons (^8.5.0)](https://www.npmjs.com/package/@primer/octicons)
 
 ## Building
 
