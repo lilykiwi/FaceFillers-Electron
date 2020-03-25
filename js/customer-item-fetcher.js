@@ -35,9 +35,9 @@ db.connect(function (err) {
     menu_items.forEach(element => {
       console.log(element.item_name);
 
-      innerElementID = "innerElement" + (element.menu_item_id - 1);
-      innerElementQuantity = "innerElementQuantity" + (element.menu_item_id - 1);
-      args = (element.menu_item_id - 1) + ", '" + element.item_name + "', " + element.item_cost;
+      innerElementID = "innerElement" + element.menu_item_id;
+      innerElementQuantity = "innerElementQuantity" + element.menu_item_id;
+      args = element.menu_item_id + ", '" + element.item_name + "', " + element.item_cost;
       itemCost = "£" + (element.item_cost / 100.0).toFixed(2);
 
       document.getElementById("menu_items_holder").innerHTML += `
@@ -224,43 +224,49 @@ function placeOrder() {
     }
   }
   if (!cartEmpty) {
-    db.connect(function (err) {
-      if (err) throw err;
-      console.log("Connected to db for order placement");
-      var targetStoreID = "1";
+    var targetStoreID = "1";
 
-      // sum cost (TODO: could be a function)
-      let totalCost = 0;
-      for (const value in cart.itemquantity) {
-        if (cart.itemquantity.hasOwnProperty(value)) {
-          const element = cart.itemquantity[value];
-          if ((element) != 0) {
-            totalCost += cart.itemcost[value] * cart.itemquantity[value];
-          }
+    // sum cost (TODO: could be a function)
+    let totalCost = 0;
+    for (const value in cart.itemquantity) {
+      if (cart.itemquantity.hasOwnProperty(value)) {
+        const element = cart.itemquantity[value];
+        if ((element) != 0) {
+          totalCost += cart.itemcost[value] * cart.itemquantity[value];
         }
       }
+    }
 
-      // add order to orders table
-      orderKey = db.query("INSERT INTO orders(store_id, customer_id, date_of_order, cost_of_order, payment_method, payment_auth_code) OUTPUT INSERTED.order_id VALUES (" + targetStoreID + ", 0, " + new Date().toISOString().slice(0, 19).replace('T', ' ') + ", " + totalCost + "'Visa', 37285930182975930294);");
+    // add order to orders table
+    let Query = `INSERT INTO orders(store_id, customer_id, date_of_order, cost_of_order, payment_method, payment_auth_code)
+    VALUES (` + targetStoreID + `, 1, "` + new Date().toISOString().slice(0, 19).replace('T', ' ') + `", ` + totalCost + `, "Visa", 74432781);`;
+
+    db.query(Query, function (err, result) {
+      if (err) throw err;
+
+      console.log(result.item_id)
 
       // add order items to order_items tables with reference to order
       for (const i in cart.item_id) {
         if (cart.item_id.hasOwnProperty(i)) {
           const cartItemID = cart.item_id[i];
           const cartItemQuantity = cart.itemquantity[i];
-          db.query("INSERT INTO order_items(menu_item_id, order_id, quantity) VALUES (" + cartItemID + ", " + orderKey + ", " + cartItemQuantity + ");");
+          db.query("INSERT INTO order_items(menu_item_id, order_id, quantity) VALUES (" + cartItemID + ", " + result.insertId + ", " + cartItemQuantity + ");");
+          console.log("Added to order_items, " + cartItemID + ", " + result.item_id + ", " + cartItemQuantity);
         }
       }
-
       cart = { // clear cart after input
         "item_id": [],
         "itemname": [],
         "itemcost": [],
         "itemquantity": []
       };
-
-      homebuttonModal(); // present confirmation and home button
-      updateCart(); // redraw
     });
+
+    // disable this button!!
+    document.getElementById("subtotal-order-button").disabled = false;
+
+    homebuttonModal(); // present confirmation and home button
+    updateCart(); // redraw
   }
 }
