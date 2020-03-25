@@ -1,20 +1,16 @@
-# MySQL (MariaDB) setup
+-- ################     Clear Existing Tables & Users
 
-[Back to Readme](README.md)
+DROP DATABASE IF EXISTS facefillers_db;
+DROP USER IF EXISTS 'public'@'%';
 
-## Initialisation
+-- ################     User Setup
 
-First, enter into the MySQL using `sudo mysql`. You need to use sudo as there are no users yet available in the service.
-
-```sql
 CREATE USER IF NOT EXISTS 'public'@'%' IDENTIFIED BY 'publicpass';
 CREATE DATABASE facefillers_db;
 GRANT ALL PRIVILEGES ON facefillers_db.* TO 'public'@'%';
-```
 
-## Database Setup
+-- ################     Table Setup
 
-```sql
 USE facefillers_db;
 
 CREATE TABLE customers (
@@ -74,13 +70,9 @@ CREATE TABLE order_items(
   PRIMARY KEY (order_item_id),
   FOREIGN KEY (menu_item_id) REFERENCES menu_items(menu_item_id)
 );
-```
 
-## Adding Data
+-- ################     Adding Data
 
-Use these queries to create a food type, a store, and 4 placeholder menu items:
-
-```sql
 USE facefillers_db;
 
 INSERT INTO food_types (food_type_name) VALUES ("Vegan");
@@ -96,6 +88,3 @@ INSERT INTO menu_items (store_id, food_type_id, item_name, item_cost, item_aller
 INSERT INTO menu_items ( store_id, food_type_id, item_name, item_cost, item_allergen_info, food_item_supplier, food_item_address) VALUES (1, 1, "Pad Thai", 1300, "Soya", "Plant B", "23 High Street, BN11 1PE");
 
 INSERT INTO customers (customer_name, customer_address, email_address, customer_password) VALUES ("Jane Doe", "5, BN11 4EA", "jane.doe@email.email", "4F9A3F1F35376F9E02CA79E8343381F5EDC1BBF4C1995CF592B4FAE3CDA9A587");
-```
-
-If you got here, your database should all be set up!

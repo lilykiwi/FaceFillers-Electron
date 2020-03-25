@@ -25,4 +25,8 @@ npm start
 
 ## Database Integration
 
-This project requires a MySQL database service to be running on the system, configured in a specific way. I personally used MariaDB, so any analogous database utility should function perfectly. The setup is available here: [mysql.md](mysql.md).
+In order to set up the database for use with this application, you need [MariaDB (^10.3)](https://mariadb.com/downloads) in order to host the database as a service. I use apt to install it, so I'm a version behind at the time of writing. After install, make sure that the service is running and run the client using sudo (or equivalent) and run (or copy/paste) the following script:
+
+[plaintext SQL script](sqlscript)
+
+This script will create the database, user, tables, and enter some data. That's all you need to get started!
