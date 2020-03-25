@@ -9,14 +9,11 @@ body {
   width: 0px;
 }
 
-button:targer {
-  border-style: none;
-  background: #dedede;
+:focus {
+  outline: none;
 }
 
 .header {
-  position: sticky;
-  top: 10px;
   width: 100%;
 }
 
@@ -61,6 +58,10 @@ button:targer {
 .home-button:hover {
   background: rgba(255,255,255,0.5);
   cursor: pointer;
+}
+
+.home-button:focus {
+  background: rgba(255,255,255,0.5);
 }
 
 .home-button-img {
@@ -109,9 +110,15 @@ button:targer {
   background: #dedede;
 }
 
+.bigButton:focus {
+  box-shadow: none;
+  background: #dedede;
+}
+
+
 .menu-listing-container {
   padding: 10px;
-  margin: 0px 0 25px 0;
+  margin: 0px 0 15px 0;
   width: 530px;
   border-radius: 20px;
   box-shadow: inset 0 0 0 2px #dedede;
@@ -149,6 +156,9 @@ button:targer {
   width: 30px;
   height: 30px;
   margin: 2px;
+  padding: 0;
+  border-style: none;
+  background: white;
   border-radius: 8px;
   box-shadow: inset 0 0 0 2px #dedede;
 }
@@ -159,27 +169,50 @@ button:targer {
   box-shadow: none;
 }
 
+.menu-listing-button:focus {
+  background: #dedede;
+  box-shadow: none;
+}
+
 .menu-listing-button-img {
   position: relative;
-  top: 7px;
-  left: 7px;
   width: 16px;
   height: 16px;
 }
 
-.footerBar {
-  position: absolute;
-  bottom: 0px;
+#subtotal-item-container {
+  padding: 10px;
+  margin: 0px 0 25px 0;
+  width: 530px;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 2px #dedede;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.subtotal-item {
+  padding: 4px;
+  margin: 0px 0 2px 0;
+  width: 530px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footerContainer {
   width: 100%;
+  pointer-events: none;
+  position: fixed;
+  bottom: 0px;
+  text-align: center;
 }
 
 .footerText {
-  margin: 0 auto;
-  width: max-content;
-  text-align: center;
+  pointer-events: all;
+  display: inline-block;
   font-size: 12px;
   font-weight: 500;
   padding: 4px;
-  border-radius: 6px 6px 0 0 ;
+  border-radius: 6px 6px 0 0;
+  color: gray;
   background: white;
 }
