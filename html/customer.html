@@ -30,6 +30,8 @@
 
   <!--Content-->
   <div class="content">
+    <div id="modalContainer"></div>
+
     <div class="title">Place an Order</div>
     <div id="menu_items_holder">
 
@@ -38,22 +40,20 @@
     <div class="title">Subtotal</div>
     <div class="subtotal_holder">
       <div class="subtotal-container">
-        <div class="flexContainer">
-          <div id="subtotal-item-container">
+        <div id="subtotal-item-container">
+          <div class='subtotal-item'>Cart Empty!</div>
+        </div>
+        <div class="flexInline">
+          <div class="subtotal-info-container">
+            <div id="subtotal-cost" class="subtotal-info">Total Cost: £0.00</div>
+            <!--placeholder number, out of scope to implement it properly-->
+            <div class="subtotal-info">Delivery Estimate: 30 mins</div>
           </div>
-          <div class="subtotal-name-container">
-            Total Cost:
-          </div>
-          <div class="subtotal-cost-container">
-            Delivery Address:
-          </div>
-
-          <div class="subtotal-order-button">
-
-          </div>
+          <button onclick="placeOrder()" id="subtotal-order-button" disabled>Place Order</button>
         </div>
       </div>
     </div>
+  </div>
   </div>
 
   <!--Footer-->

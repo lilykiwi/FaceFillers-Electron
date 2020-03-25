@@ -198,6 +198,124 @@ body {
   flex-wrap: wrap;
 }
 
+.flexInline {
+  width: 550px;
+  display: inline-flex;
+}
+
+.subtotal-info-container {
+  flex-grow: 1;
+  border: none;
+  width: 250px;
+  height: 100px;
+  margin: 0 25px 0 0;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  border-radius: 25px;
+  background: none;
+  box-shadow: inset 0 0 0 2px #dedede;
+}
+
+.subtotal-info {
+  position: relative;
+  left: 15px;
+  top: 21px;
+  padding: 5px;
+  width: 205px;
+}
+
+#subtotal-order-button {
+  flex-grow: 1;
+  border: none;
+  width: 250px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  font-size: 38px;
+  text-decoration: none;
+  color: black;
+  border-radius: 25px;
+  background: none;
+  box-shadow: inset 0 0 0 2px #dedede;
+}
+
+#subtotal-order-button:hover {
+  box-shadow: none;
+  background: #dedede;
+  cursor: pointer;
+}
+
+#subtotal-order-button:focus {
+  background: #dedede;
+}
+
+#subtotal-order-button:disabled {
+  color: lightgray;
+  cursor: default;
+  background: none;
+  box-shadow: inset 0 0 0 2px #dedede;
+}
+
+/*<div class="modalBackground">
+  <div class="modalContainer">
+    <div class="modalText">Order placed successfully! Click the button to return to the home menu.</div>
+    <button class="modalHomeButton">Home</button>
+  </div>
+</div>*/
+
+.modalBackground {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+}
+
+.modalContainer {
+  position: fixed;
+  width: 60vw;
+  height: 40vw;
+  background: white;
+  top: 20vh;
+  left: 20vw;
+  border-radius: 25px;
+}
+
+.modalText {
+  font-size: 24px;
+  text-align: center;
+  position: relative;
+  padding: 20px;
+}
+
+.modalHomeButton {
+  width: 50vw;
+  height: 80px;
+  margin: 10px 5vw 10px 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 38px;
+  text-decoration: none;
+  color: black;
+  border-radius: 25px;
+  box-shadow: inset 0 0 0 2px #dedede;
+}
+
+.modalHomeButton:hover {
+  cursor: pointer;
+  background: #dedede;
+  box-shadow: none;
+}
+
+.modalHomeButton:focus {
+  background: #dedede;
+  box-shadow: none;
+}
+
 .footerContainer {
   width: 100%;
   pointer-events: none;

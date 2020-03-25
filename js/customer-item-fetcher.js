@@ -168,12 +168,99 @@ function updateCart() {
   // clear subtotal list
   document.getElementById("subtotal-item-container").innerHTML = "";
 
+  // Cart info area
+  let cartEmpty = true;
   for (const i in cart.item_id) {
     if (cart.item_id.hasOwnProperty(i)) {
       if (cart.itemquantity[i] != 0) {
         document.getElementById("subtotal-item-container").innerHTML +=
           "<div class='subtotal-item'>" + cart.itemquantity[i] + "x " + cart.itemname[i] + "</div>";
+        cartEmpty = false;
       }
     }
+  }
+  if (cartEmpty) {
+    document.getElementById("subtotal-item-container").innerHTML = "<div class='subtotal-item'>Cart Empty!</div>";
+    document.getElementById("subtotal-order-button").disabled = true;
+  } else {
+    document.getElementById("subtotal-order-button").disabled = false;
+  }
+
+  // Cart cost & Button stuff
+  let totalCost = 0;
+  for (const value in cart.itemquantity) {
+    if (cart.itemquantity.hasOwnProperty(value)) {
+      const element = cart.itemquantity[value];
+      if ((element) != 0) {
+        totalCost += cart.itemcost[value] * cart.itemquantity[value];
+      }
+    }
+  }
+  let outputCost = "£" + (totalCost / 100.0).toFixed(2);
+  document.getElementById("subtotal-cost").innerHTML = "Total Cost: " + outputCost;
+}
+
+/* ----------------- Order Confirmation Modal ----------------- */
+
+function homebuttonModal() {
+  document.getElementById("modalContainer").innerHTML = `
+    <div class="modalBackground">
+      <div class="modalContainer">
+        <div class="modalText">Order placed successfully! Click the button to return to the home menu.</div>
+        <a href="index.html" class="modalHomeButton">Home</a>
+      </div>
+    </div>
+  `;
+}
+
+function placeOrder() {
+  // Double check that the cart isn't empty, then connect to the db and do stuff
+  let cartEmpty = true;
+  for (const i in cart.item_id) {
+    if (cart.item_id.hasOwnProperty(i)) {
+      if (cart.itemquantity[i] != 0) {
+        cartEmpty = false;
+      }
+    }
+  }
+  if (!cartEmpty) {
+    db.connect(function (err) {
+      if (err) throw err;
+      console.log("Connected to db for order placement");
+      var targetStoreID = "1";
+
+      // sum cost (TODO: could be a function)
+      let totalCost = 0;
+      for (const value in cart.itemquantity) {
+        if (cart.itemquantity.hasOwnProperty(value)) {
+          const element = cart.itemquantity[value];
+          if ((element) != 0) {
+            totalCost += cart.itemcost[value] * cart.itemquantity[value];
+          }
+        }
+      }
+
+      // add order to orders table
+      orderKey = db.query("INSERT INTO orders(store_id, customer_id, date_of_order, cost_of_order, payment_method, payment_auth_code) OUTPUT INSERTED.order_id VALUES (" + targetStoreID + ", 0, " + new Date().toISOString().slice(0, 19).replace('T', ' ') + ", " + totalCost + "'Visa', 37285930182975930294);");
+
+      // add order items to order_items tables with reference to order
+      for (const i in cart.item_id) {
+        if (cart.item_id.hasOwnProperty(i)) {
+          const cartItemID = cart.item_id[i];
+          const cartItemQuantity = cart.itemquantity[i];
+          db.query("INSERT INTO order_items(menu_item_id, order_id, quantity) VALUES (" + cartItemID + ", " + orderKey + ", " + cartItemQuantity + ");");
+        }
+      }
+
+      cart = { // clear cart after input
+        "item_id": [],
+        "itemname": [],
+        "itemcost": [],
+        "itemquantity": []
+      };
+
+      homebuttonModal(); // present confirmation and home button
+      updateCart(); // redraw
+    });
   }
 }
