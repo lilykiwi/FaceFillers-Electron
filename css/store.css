@@ -1,0 +1,113 @@
+.orderBox {
+  width: 100%;
+  margin: 25px 0 25px 0;
+  color: black;
+  border-radius: 25px;
+  box-shadow: inset 0 0 0 2px #dedede;
+}
+
+.flexContainerColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderInformation {
+  flex-grow: 1;
+}
+
+.flexContainerRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.controlContainer {
+  position: relative;
+  padding: 10px 10px 10px 10px;
+  width: 530px;
+}
+
+.orderBoxItems {
+  position: relative;
+  padding: 0 10px 10px 10px;
+  width: 530px;
+}
+
+.inButton {
+  padding: 2px;
+}
+
+.pageButton {
+  width: 130px;
+  margin: 2px;
+  border-style: none;
+  background: white;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 2px #dedede;
+}
+
+.pageButton:hover {
+  cursor: pointer;
+  background: #dedede;
+  box-shadow: none;
+}
+
+.pageButton:focus {
+  background: #dedede;
+  box-shadow: none;
+}
+
+.modalBackground {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+}
+
+.modalContainer {
+  position: fixed;
+  width: 60vw;
+  background: white;
+  top: 20vh;
+  left: 20vw;
+  border-radius: 25px;
+}
+
+.modalTitle {
+  font-size: 24px;
+  text-align: center;
+  padding: 20px 20px 0 20px;
+}
+
+.modalText {
+  font-size: 16px;
+  padding: 10px 20px 0 20px;
+}
+
+.modalButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalButton {
+  width: 130px;
+  margin: 2px;
+  border-style: none;
+  background: white;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 2px #dedede;
+}
+
+.modalButton:hover {
+  cursor: pointer;
+  background: #dedede;
+  box-shadow: none;
+}
+
+.modalButton:focus {
+  background: #dedede;
+  box-shadow: none;
+}

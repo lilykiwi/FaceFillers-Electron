@@ -9,7 +9,7 @@
   <meta http-equiv="X-Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
   <link rel="stylesheet" type="text/css" href="../css/generic.css">
-  <script src="../js/customer-item-fetcher.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/customer.css">
   <title>FaceFillers - Customer Page</title>
 </head>
 
@@ -18,18 +18,17 @@
   <div class="header">
     <img class="headerImg" src="../img/titleMaskCustomer.svg">
     <div class="header-container">
-
       <div id="header-title">
-
       </div>
     </div>
   </div>
   <a href="index.html" class="home-button">
-    <img class="home-button-img" src="../node_modules/octicons/build/svg/home.svg"></span>
+    <img class="home-button-img" src="../node_modules/octicons/build/svg/home.svg"></img>
   </a>
 
   <!--Content-->
   <div class="content">
+    <!--Scripted container for the order placement modal-->
     <div id="modalContainer"></div>
 
     <div class="title">Place an Order</div>
@@ -59,9 +58,14 @@
   <!--Footer-->
   <div class="footerContainer">
     <div class="footerText">
-      MIT License - github.com/tofustardust/FaceFillers-Electron
+      MIT License - Copyright © 2020 Charlotte (tofustardust)
     </div>
   </div>
 </body>
+
+<!--Load script after content-->
+<footer>
+  <script src="../js/customer-controller.js"></script>
+</footer>
 
 </html>

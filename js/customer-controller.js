@@ -20,8 +20,6 @@ db.connect(function (err) {
   db.query("SELECT * FROM stores WHERE store_id = " + targetStoreID + ";", function (err, result) {
     if (err) throw err;
     let store_data = result[0];
-    console.log(store_data);
-    console.log("Store accessed: " + store_data.store_name);
     document.getElementById("header-title").innerHTML = store_data.store_name;
   });
 
@@ -238,8 +236,8 @@ function placeOrder() {
     }
 
     // add order to orders table
-    let Query = `INSERT INTO orders(store_id, customer_id, date_of_order, cost_of_order, payment_method, payment_auth_code)
-    VALUES (` + targetStoreID + `, 1, "` + new Date().toISOString().slice(0, 19).replace('T', ' ') + `", ` + totalCost + `, "Visa", 74432781);`;
+    let Query = `INSERT INTO orders(store_id, customer_id, order_status, date_of_order, cost_of_order, payment_method, payment_auth_code)
+    VALUES (` + targetStoreID + `, 1, "waiting", "` + new Date().toISOString().slice(0, 19).replace('T', ' ') + `", ` + totalCost + `, "Visa", 74432781);`;
 
     db.query(Query, function (err, result) {
       if (err) throw err;
@@ -251,8 +249,10 @@ function placeOrder() {
         if (cart.item_id.hasOwnProperty(i)) {
           const cartItemID = cart.item_id[i];
           const cartItemQuantity = cart.itemquantity[i];
-          db.query("INSERT INTO order_items(menu_item_id, order_id, quantity) VALUES (" + cartItemID + ", " + result.insertId + ", " + cartItemQuantity + ");");
-          console.log("Added to order_items, " + cartItemID + ", " + result.item_id + ", " + cartItemQuantity);
+          if (cartItemQuantity != 0) {
+            db.query("INSERT INTO order_items(menu_item_id, order_id, quantity) VALUES (" + cartItemID + ", " + result.insertId + ", " + cartItemQuantity + ");");
+            console.log("Added to order_items, " + cartItemID + ", " + result.item_id + ", " + cartItemQuantity);
+          }
         }
       }
       cart = { // clear cart after input

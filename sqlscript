@@ -11,6 +11,7 @@ CREATE TABLE customers (
   customer_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   customer_name varchar(50) NOT NULL,
   customer_address varchar(100) NOT NULL,
+  contact_number varchar(30) NOT NULL,
   email_address varchar(64) NOT NULL,
   customer_password varchar(256) NOT NULL,
   PRIMARY KEY (customer_id)
@@ -28,8 +29,9 @@ CREATE TABLE food_types(
 );
 CREATE TABLE orders(
   order_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  store_id INT UNSIGNED NOT NULL ,
+  store_id INT UNSIGNED NOT NULL,
   customer_id INT UNSIGNED NOT NULL,
+  order_status varchar(30) NOT NULL,
   date_of_order DATETIME NOT NULL,
   cost_of_order INT UNSIGNED NOT NULL,
   payment_method varchar(30) NOT NULL,
@@ -67,4 +69,4 @@ INSERT INTO menu_items (store_id, food_type_id, item_name, item_cost, item_aller
 INSERT INTO menu_items (store_id, food_type_id, item_name, item_cost, item_allergen_info, food_item_supplier, food_item_address) VALUES (1, 1, "Sticky Hoisin Noodles", 990, "None", "Plant B", "23 High Street, BN11 1PE");
 INSERT INTO menu_items (store_id, food_type_id, item_name, item_cost, item_allergen_info, food_item_supplier, food_item_address) VALUES (1, 1, "Rainbow Spring Rolls", 1150, "Gluten, Soya", "Plant B", "23 High Street, BN11 1PE");
 INSERT INTO menu_items (store_id, food_type_id, item_name, item_cost, item_allergen_info, food_item_supplier, food_item_address) VALUES (1, 1, "Pad Thai", 1300, "Soya", "Plant B", "23 High Street, BN11 1PE");
-INSERT INTO customers (customer_name, customer_address, email_address, customer_password) VALUES ("Jane Doe", "5, BN11 4EA", "jane.doe@email.email", "4F9A3F1F35376F9E02CA79E8343381F5EDC1BBF4C1995CF592B4FAE3CDA9A587");
+INSERT INTO customers (customer_name, customer_address, contact_number, email_address, customer_password) VALUES ("Jane Doe", "89  Bullwood Rd, St Clether, BN11 4EA", "+44 1632 960413", "jane.doe@email.email", "4F9A3F1F35376F9E02CA79E8343381F5EDC1BBF4C1995CF592B4FAE3CDA9A587");
