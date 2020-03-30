@@ -1,6 +1,12 @@
 # FaceFillers-Electron
 
-For my 2019-2020 Computing HNC, one task involved creating an application with a Graphical User Interface (GUI), SQL Clauses, and a Relational SQL Database.
+![FaceFillers](img/preview.png)
+
+For my 2019-2020 Computing HNC, one task involved creating an application with a Graphical User Interface (GUI), SQL Clauses, and a Relational SQL Database. This is a mockup design for a mobile food aggregator app, which performs database functions in order to gather and process data. It's developed in using Electron, making it similar to a webpage, allowing for easy conversion into an online app or mobile app.
+
+This project doesn't have any future goals outside of refactoring the javascript already implemented (see [courier-controller.js](js/courier-controller.js) for how it should look). This is because the scope of the project was just to implement a database system with a user interface, without any "true" functionality like server hosting, database discovery, login systems, GPS tracking, etc, that you would expect to find in a food aggregator. Similarly, this doesn't use "real" data, instead utilising [fake SQL data](sqlscript) that functions inside the constraints of the app.
+
+[store-controller-revamp.js](js/store-controller-revamp.js) is currently unfinished, but aims to replace the original store controller script in functionality while cleaning up the code significantly.
 
 This project (currently) utilises:
 
