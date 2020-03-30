@@ -78,7 +78,7 @@ function updatePage() {
             <div class="confirmButtonText inButton">Contact Customer</div>
             <img class="confirmButtonImg inButton" src="../node_modules/octicons/build/svg/issue-opened.svg"></img>
           </button>`
-        } else if (element.order_status == "complete") {
+        } else if (element.order_status == "toCollect") {
           document.getElementById("orderBoxButtons" + key).innerHTML = `
           <button class="pageButton" onclick="contactCustomer(` + key + `)">
             <div class="confirmButtonText inButton">Contact Customer</div>
@@ -86,7 +86,7 @@ function updatePage() {
           </button>`
         }
 
-        if (element.order_status != "complete") {
+        if (element.order_status != "toCollect") {
           // Block to get all the items in the order and display them
           db.query("SELECT * FROM menu_items WHERE store_id=" + targetStoreID, function (err, result) {
             if (err) throw err;
@@ -113,8 +113,8 @@ function updatePage() {
 
 function completeOrder(orderNumber) {
   // TODO: order completion
-  // Should update order in DB from "preparing" to "complete"
-  db.query("UPDATE orders SET order_status='complete' WHERE order_id =" + orderNumber + ";", function (err, result) {
+  // Should update order in DB from "preparing" to "toCollect"
+  db.query("UPDATE orders SET order_status='toCollect' WHERE order_id =" + orderNumber + ";", function (err, result) {
     if (err) throw err;
     updatePage();
   });

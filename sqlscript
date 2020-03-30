@@ -19,7 +19,7 @@ CREATE TABLE customers (
 CREATE TABLE stores (
   store_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   store_name varchar (50) NOT NULL,
-  store_location varchar (100) NOT NULL,
+  store_address varchar (100) NOT NULL,
   PRIMARY KEY (store_id)
 );
 CREATE TABLE food_types(
@@ -64,7 +64,7 @@ CREATE TABLE order_items(
 -- ################     Adding Data
 USE facefillers_db;
 INSERT INTO food_types (food_type_name) VALUES ("Vegan");
-INSERT INTO stores (store_name, store_location) VALUES ("Plant B", "23 High Street, BN11 1PE");
+INSERT INTO stores (store_name, store_address) VALUES ("Plant B", "23 High Street, BN11 1PE");
 INSERT INTO menu_items (store_id, food_type_id, item_name, item_cost, item_allergen_info, food_item_supplier, food_item_address) VALUES (1, 1, "Asparagus & Lemon Spaghetti", 1210, "Gluten", "Plant B", "23 High Street, BN11 1PE");
 INSERT INTO menu_items (store_id, food_type_id, item_name, item_cost, item_allergen_info, food_item_supplier, food_item_address) VALUES (1, 1, "Sticky Hoisin Noodles", 990, "None", "Plant B", "23 High Street, BN11 1PE");
 INSERT INTO menu_items (store_id, food_type_id, item_name, item_cost, item_allergen_info, food_item_supplier, food_item_address) VALUES (1, 1, "Rainbow Spring Rolls", 1150, "Gluten, Soya", "Plant B", "23 High Street, BN11 1PE");
