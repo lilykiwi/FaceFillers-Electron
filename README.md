@@ -1,5 +1,3 @@
-# FaceFillers-Electron
-
 ![FaceFillers](img/preview.png)
 
 For my 2019-2020 Computing HNC, one task involved creating an application with a Graphical User Interface (GUI), SQL Clauses, and a Relational SQL Database. This is a mockup design for a mobile food aggregator app, which performs database functions in order to gather and process data. It's developed in using Electron, making it similar to a webpage, allowing for easy conversion into an online app or mobile app.
