@@ -9,7 +9,7 @@ This project doesn't have any future goals outside of refactoring the javascript
 This project (currently) utilises:
 
 - [NodeJS (^10.15.2)](https://github.com/nodejs/node)
-- [MariaDB (^10.3)](https://mariadb.com/downloads)
+- [MariaDB (^10.3)](https://mariadb.org/download/)
 
 With the npm packages through `npm install`:
 
