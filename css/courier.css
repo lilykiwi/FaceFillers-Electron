@@ -1,22 +1,22 @@
 .reloadButton {
-  background: none;
+  background: linear-gradient(to bottom right, #abbd33, #46ccb8);
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  color: #fff;
   padding: 12px;
   border-radius: 20px;
   border-style: none;
-  box-shadow: inset 0 0 0 2px #dedede;
   margin: 25px 125px;
   width: 280px;
   font-size: 28px;
 }
 
 .reloadButton:hover {
-  box-shadow: none;
-  background: #dedede;
+  background: #46ccb8;
   cursor: pointer;
 }
 
 .reloadButton:focus {
-  background: #dedede;
+  background: #46ccb8;
 }
 
 #storeInfo {
@@ -63,22 +63,26 @@
 }
 
 #updateOrderButton {
-  background: none;
+  background: linear-gradient(to bottom right, #abbd33, #46ccb8);
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  color: #fff;
   padding: 12px;
   border-radius: 20px;
   border-style: none;
-  box-shadow: inset 0 0 0 2px #dedede;
   font-size: 36px;
   margin-top: 25px;
   width: 550px;
 }
 
 #updateOrderButton:hover {
-  box-shadow: none;
-  background: #dedede;
+  background: #46ccb8;
   cursor: pointer;
 }
 
 #updateOrderButton:focus {
-  background: #dedede;
+  background: #46ccb8;
+}
+
+.invisible {
+  display: none;
 }

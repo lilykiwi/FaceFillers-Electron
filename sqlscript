@@ -38,7 +38,11 @@ CREATE TABLE orders(
   payment_auth_code INT UNSIGNED NOT NULL,
   PRIMARY KEY (order_id),
   FOREIGN KEY (store_id) REFERENCES stores(store_id),
-  FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+  FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+  CONSTRAINT allowed_statuses CHECK
+    ( -- constrain to the four order states
+      order_status IN ('waiting','preparing','toCollect','toDeliver')
+    )
 );
 CREATE TABLE menu_items (
   menu_item_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -51,7 +55,11 @@ CREATE TABLE menu_items (
   food_item_address varchar (100) NOT NULL,
   PRIMARY KEY (menu_item_id),
   FOREIGN KEY (store_id) REFERENCES stores(store_id),
-  FOREIGN KEY (food_type_id) REFERENCES food_types(food_type_id)
+  FOREIGN KEY (food_type_id) REFERENCES food_types(food_type_id),
+  CONSTRAINT cost_minimum CHECK
+    ( -- minimum of £1 for an item
+      item_cost >= 100
+    )
 );
 CREATE TABLE order_items(
   order_item_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -59,7 +67,11 @@ CREATE TABLE order_items(
   order_id INT UNSIGNED NOT NULL,
   quantity INT UNSIGNED NOT NULL,
   PRIMARY KEY (order_item_id),
-  FOREIGN KEY (menu_item_id) REFERENCES menu_items(menu_item_id)
+  FOREIGN KEY (menu_item_id) REFERENCES menu_items(menu_item_id),
+  CONSTRAINT quantity_limits CHECK
+    ( -- make sure an order has a quantity greater than 0
+      quantity >= 1 AND quantity <= 10
+    )
 );
 -- ################     Adding Data
 USE facefillers_db;

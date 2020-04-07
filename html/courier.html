@@ -8,7 +8,7 @@
   <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'">
   <link rel="stylesheet" type="text/css" href="../css/generic.css">
   <link rel="stylesheet" type="text/css" href="../css/courier.css">
-  <title>FaceFillers - Courier Page</title>
+  <title>FaceFillers - Store Page</title>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
   <div class="header">
     <img class="headerImg" src="../img/titleMaskCourier.svg">
     <div class="header-container">
-      <div id="header-title">
+      <div id="header-title">JS Test Page
       </div>
     </div>
   </div>
@@ -26,8 +26,32 @@
 
   <!--Content-->
   <div class="content">
-    <div id="courierOrderContainer">
+    <div id="courierOrderContainer" class="invisible">
+      <div class="title" id="orderTitle">Order [!]</div>
+      <div class="title" id="orderTime">Placed at [!]</div>
+      <div class="orderPanel">
+        <div class="flexInline">
+          <div id="storeInfo">
+            <div class="subtitle">Store Info</div>
+            <div class="infoListing" id="storeName">Name [!]</div>
+            <div class="infoListing" id="storeAddress">Address [!]</div>
+          </div>
+          <div id="customerInfo">
+            <div class="subtitle">Customer Info</div>
+            <div class="infoListing" id="customerName">Name [!]</div>
+            <div class="infoListing" id="customerAddress">Address [!]</div>
+          </div>
+        </div>
+        <div class="orderInfo">
+          <div class="subtitle">Order Info</div>
+          <div id="orderInfoBox">
 
+          </div>
+        </div>
+        <div id="buttonContainer">
+          <button id='updateOrderButton'>Delivered Order</button>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -6,7 +6,7 @@ const db = MySQL.createConnection({
   host: "localhost",
   user: "public",
   password: "publicpass",
-  database: "facefillers_db"
+  database: "facefillers_db",
 });
 
 const targetStoreID = "1";
@@ -20,138 +20,117 @@ const targetStoreID = "1";
   update();
 })();
 
+/* ----------------- Async Update ----------------- */
+
 async function update() {
-  // due to this being async, the html here will be shown -unless- an order is returned, due to the promise.
-  // Future plans would involve changing this with a periodic update, however that's out of scope here as there likely wouldn't be multiple clients running at once, so order discovery isn't important.
-  changeHTML("courierOrderContainer", "<div class='title'>No order found</div>");
-  addHTML("courierOrderContainer", "<button onclick='reload()' class='reloadButton'>Reload</div>")
-  /* ----------------- Async DB operations ----------------- */
-  const storeData = await getStoreData(targetStoreID);
-  changeHTML("header-title", storeData.store_name + " - Courier");
-
-  // Need to get order data before anything else can be filled
-  const orderData = await getOrderData(storeData.store_id);
-  const menuItems = await getMenuItems(storeData.store_id);
-  const orderItems = await getOrderItems(orderData.order_id);
-  const customerData = await getCustomerData(orderData.customer_id);
-
-  changeHTML("courierOrderContainer", `
-  <!--remove everything in here-->
-  <div class="title" id="orderTitle">Order [!]</div>
-  <div class="title" id="orderTime">Placed at [!]</div>
-  <div class="orderPanel">
-    <div class="flexInline">
-      <div id="storeInfo">
-        <div class="subtitle">Store Info</div>
-        <div class="infoListing" id="storeName">Name [!]</div>
-        <div class="infoListing" id="storeAddress">Address [!]</div>
-      </div>
-      <div id="customerInfo">
-        <div class="subtitle">Customer Info</div>
-        <div class="infoListing" id="customerName">Name [!]</div>
-        <div class="infoListing" id="customerAddress">Address [!]</div>
-      </div>
-    </div>
-    <div class="orderInfo">
-      <div class="subtitle">Order Info</div>
-      <div id="orderInfoBox">
-
-      </div>
-    </div>
-    <div id="buttonContainer"></div>
-  </div>`);
+  let orderData = await getOrderData();
+  if (orderData == undefined) {
+    changeHTML(
+      "courierOrderContainer",
+      `<div class='title'>No order found</div>
+      <button onclick ='reload()' class='reloadButton'>Reload</div>`
+    );
+    document.getElementById("courierOrderContainer").style.display = "block";
+    return;
+  } else {
+    document.getElementById("courierOrderContainer").style.display = "block";
+  }
+  changeHTML("header-title", orderData.s_name + " - Courier");
+  let itemsData = await getItemsData(orderData.o_id);
 
   // Titles
-  changeHTML("orderTitle", "Order #" + orderData.order_id)
-  changeHTML("orderTime", "Placed at " + dateToTime(orderData.date_of_order))
+  changeHTML("orderTitle", "Order #" + orderData.o_id);
+  changeHTML("orderTime", "Placed at " + dateToTime(orderData.o_date));
 
   // Store Info Box
-  changeHTML("storeName", storeData.store_name);
-  changeHTML("storeAddress", storeData.store_address);
+  changeHTML("storeName", orderData.s_name);
+  changeHTML("storeAddress", orderData.s_address);
 
   // Customer Info Box
-  changeHTML("customerName", customerData.customer_name);
-  changeHTML("customerAddress", customerData.customer_address);
+  changeHTML("customerName", orderData.c_name);
+  changeHTML("customerAddress", orderData.c_address);
 
   // Order Info box
   changeHTML("orderInfoBox", "");
-  for (const i in orderItems) {
-    if (orderItems.hasOwnProperty(i)) {
-      element = orderItems[i];
-      addHTML("orderInfoBox", "<div class='infoListing'>" + resolveItemInfo(orderItems, menuItems, i) + "</div>");
-    }
+  for (const i in itemsData) {
+    addHTML(
+      "orderInfoBox",
+      "<div class='infoListing'>" + resolveItemInfo(itemsData, i) + "</div>"
+    );
   }
 
-  // Button Config
-  if (orderData.order_status == "toCollect") {
-    changeHTML("buttonContainer", "<button onclick='pickedUp(" + orderData.order_id + ")' id='updateOrderButton'>Picked Up Order</button>");
+  // Button Stuff
+  if (orderData.o_status == "toCollect") {
+    changeHTML("updateOrderButton", "Collected Order");
+    changeButtonAttr(
+      "updateOrderButton",
+      "progress('toCollect', " + orderData.o_id + ")"
+    );
     document.getElementById("customerInfo").classList.add("disabled");
     document.getElementById("storeInfo").classList.remove("disabled");
   } else {
-    changeHTML("buttonContainer", "<button onclick='delivered(" + orderData.order_id + ")' id='updateOrderButton'> Delivered Order</button>");
+    changeHTML("updateOrderButton", "Delivered Order");
+    changeButtonAttr(
+      "updateOrderButton",
+      "progress('toDeliver', " + orderData.o_id + ")"
+    );
     document.getElementById("customerInfo").classList.remove("disabled");
     document.getElementById("storeInfo").classList.add("disabled");
   }
 }
 
-/* ----------------- Async functions ----------------- */
+/* ----------------- Async Queries ----------------- */
 
-function getStoreData(id) {
+function getOrderData() {
   return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM stores WHERE store_id = " + id + ";", function (err, result) {
-      return err ? reject(err) : resolve(result[0]);
-    });
-  });
-}
-
-function getOrderData(id) {
-  return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM orders WHERE store_id = " + id + ";", function (err, result) {
-      for (const i in result) {
-        if (result.hasOwnProperty(i)) {
-          const element = result[i];
-          if (element.order_status == "toCollect" || element.order_status == "toDeliver") {
-            //found first toDeliver order
-            return err ? reject(err) : resolve(element);
-          }
-        }
+    db.query(
+      `SELECT stores.store_id             as s_id,
+              stores.store_name           as s_name,
+              stores.store_address        as s_address,
+              orders.order_id             as o_id,
+              orders.date_of_order        as o_date,
+              orders.order_status         as o_status,
+              customers.customer_name     as c_name,
+              customers.customer_address  as c_address
+        FROM        stores
+        INNER JOIN  orders    ON orders.store_id    = stores.store_id
+        INNER JOIN  customers ON customers.customer_id = orders.customer_id
+        WHERE       orders.order_id = (SELECT MIN(order_id) from orders)
+        AND         orders.order_status = "toCollect"
+        OR          orders.order_status = "toDeliver"
+        AND         stores.store_id = 1`,
+      function (err, result) {
+        return err ? reject(err) : resolve(result[0]);
       }
-    });
+    );
   });
 }
 
-function getMenuItems(id) {
+function getItemsData(id) {
+  // more complex join query to get all the relevant data
   return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM menu_items WHERE store_id = " + id + ";", function (err, result) {
-      return err ? reject(err) : resolve(result);
-    });
+    db.query(
+      `SELECT order_items.order_item_id as oi_id,
+              order_items.quantity      as oi_quantity,
+              menu_items.item_name      as oi_name
+        FROM order_items
+        INNER JOIN menu_items ON menu_items.menu_item_id = order_items.menu_item_id
+        WHERE order_items.order_id = ` + id,
+      function (err, result) {
+        return err ? reject(err) : resolve(result);
+      }
+    );
   });
 }
 
-function getOrderItems(id) {
-  return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM order_items WHERE order_id = " + id + ";", function (err, result) {
-      return err ? reject(err) : resolve(result);
-    });
-  });
+/* ----------------- Regular functions ----------------- */
+
+function resolveItemInfo(r, i) {
+  return r[i].oi_quantity + "x " + r[i].oi_name;
 }
 
-function getCustomerData(id) {
-  return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM customers WHERE customer_id = " + id + ";", function (err, result) {
-      return err ? reject(err) : resolve(result[0]);
-    });
-  });
-}
-
-/* ----------------- Synchronous functions ----------------- */
-
-function resolveItemInfo(orderItems, menuItems, i) {
-  return orderItems[i].quantity + "x " + menuItems[i].item_name;
-}
-
-function dateToTime(datetime) {
-  return datetime.getHours() + ":" + datetime.getMinutes();
+function dateToTime(d) {
+  return d.getHours() + ":" + d.getMinutes();
 }
 
 function changeHTML(id, s) {
@@ -162,16 +141,25 @@ function addHTML(id, s) {
   document.getElementById(id).innerHTML += s;
 }
 
+function changeButtonAttr(id, s) {
+  document.getElementById(id).setAttribute("onclick", s);
+}
+
 function reload() {
   window.location.reload();
 }
 
-function pickedUp(id) {
-  db.query("UPDATE orders SET order_status = 'toDeliver' WHERE order_id = " + id + ";");
+function progress(status, id) {
+  if (status == "toCollect") {
+    db.query(
+      "UPDATE orders SET order_status = 'toDeliver' WHERE order_id = " +
+        id +
+        ";"
+    );
+  } else {
+    db.query("DELETE FROM orders WHERE order_id =" + id + ";");
+  }
   update();
 }
 
-function delivered(id) {
-  db.query("DELETE FROM orders WHERE order_id =" + id + ";");
-  update();
-}
+update();

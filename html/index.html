@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'"
+    />
+    <link rel="stylesheet" type="text/css" href="../css/generic.css" />
+    <title>FaceFillers - Home Page</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'">
-  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'">
-  <link rel="stylesheet" type="text/css" href="../css/generic.css">
-  <title>FaceFillers - Home Page</title>
-</head>
-
-<body>
-  <!--Header-->
-  <div class="header">
-    <img class="headerImg" src="../img/titleMaskHome.svg">
-    <div class="header-container">
-      <div id="header-title">
-        FaceFillers Home
+  <body>
+    <!--Header-->
+    <div class="header">
+      <img class="headerImg" src="../img/titleMaskHome.svg" />
+      <div class="header-container">
+        <div id="header-title">
+          FaceFillers Home
+        </div>
       </div>
     </div>
-  </div>
 
-  <!--Content-->
-  <div class="content">
-    <div class="title">Mockup App</div>
-    <div class="body">This is a mockup app that uses Electron and NodeJS to integrate a mySQL (MariaDB) Database with a
-      functional version of a food aggregator app.</div>
-    <a href="customer.html" class="bigButton customerButton">Customer UI</a>
-    <a href="store.html" class="bigButton storeButton">Store UI</a>
-    <a href="courier.html" class="bigButton courierButton">Courier UI</a>
-  </div>
-
-  <!--Footer-->
-  <div class="footerContainer">
-    <div class="footerText">
-      MIT License - Copyright © 2020 Charlotte (tofustardust)
+    <!--Content-->
+    <div class="content">
+      <div class="title">Mockup App</div>
+      <div class="body">
+        This is a mockup app that uses Electron and NodeJS to integrate a mySQL
+        (MariaDB) Database with a functional version of a food aggregator app.
+      </div>
+      <a href="customer.html" class="bigButton customerButton">Customer UI</a>
+      <a href="store.html" class="bigButton storeButton">Store UI</a>
+      <a href="courier.html" class="bigButton courierButton">Courier UI</a>
     </div>
-  </div>
-</body>
 
+    <!--Footer-->
+    <div class="footerContainer">
+      <div class="footerText">
+        MIT License - Copyright © 2020 Charlotte (tofustardust)
+      </div>
+    </div>
+  </body>
 </html>

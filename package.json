@@ -18,6 +18,7 @@
   "homepage": "https://github.com/charlottie822/FaceFillers-Electron#readme",
   "dependencies": {
     "electron": "^8.2.0",
+    "electron-debug": "^3.0.1",
     "electron-packager": "^14.2.1",
     "electron-reload": "^1.5.0",
     "mysql": "^2.18.1",
