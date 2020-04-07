@@ -1,5 +1,3 @@
-# FaceFillers-Electron
-
 ![FaceFillers](img/preview.png)
 
 For my 2019-2020 Computing HNC, one task involved creating an application with a Graphical User Interface (GUI), SQL Clauses, and a Relational SQL Database. This is a mockup design for a mobile food aggregator app, which performs database functions in order to gather and process data. It's developed in using Electron, making it similar to a webpage, allowing for easy conversion into an online app or mobile app.
@@ -11,7 +9,7 @@ This project doesn't have any future goals outside of refactoring the javascript
 This project (currently) utilises:
 
 - [NodeJS (^10.15.2)](https://github.com/nodejs/node)
-- [MariaDB (^10.3)](https://mariadb.com/downloads)
+- [MariaDB (^10.3)](https://mariadb.org/download/)
 
 With the npm packages through `npm install`:
 
