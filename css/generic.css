@@ -114,22 +114,3 @@ body {
 .bigButton:focus {
   background: #e573b2;
 }
-
-.footerContainer {
-  width: 100%;
-  pointer-events: none;
-  position: fixed;
-  bottom: 0px;
-  text-align: center;
-}
-
-.footerText {
-  pointer-events: all;
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 4px;
-  border-radius: 6px 6px 0 0;
-  color: gray;
-  background: white;
-}
