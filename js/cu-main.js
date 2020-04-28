@@ -54,6 +54,22 @@ function getData() {
 
 /* ----------------- Regular functions ----------------- */
 
+function changeHTML(id, s) {
+  document.getElementById(id).innerHTML = s;
+}
+
+function addHTML(id, s) {
+  document.getElementById(id).innerHTML += s;
+}
+
+function getTime() {
+  return new Date().toISOString().slice(0, 19).replace("T", " ");
+}
+
+function reload() {
+  window.location.reload();
+}
+
 /* ----------------- Cart System ----------------- */
 
 var cart = (function () {
