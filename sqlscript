@@ -68,6 +68,7 @@ CREATE TABLE order_items(
   quantity INT UNSIGNED NOT NULL,
   PRIMARY KEY (order_item_id),
   FOREIGN KEY (menu_item_id) REFERENCES menu_items(menu_item_id),
+  FOREIGN KEY (order_id) REFERENCES orders(order_id),
   CONSTRAINT quantity_limits CHECK
     ( -- make sure an order has a quantity greater than 0
       quantity >= 1 AND quantity <= 10
