@@ -18,7 +18,7 @@
   "homepage": "https://github.com/charlottie822/FaceFillers-Electron#readme",
   "dependencies": {
     "mysql": "^2.18.1",
-    "node": "^14.13.1",
+    "node": "^14.14.0",
     "octicons": "^8.5.0"
   },
   "devDependencies": {
